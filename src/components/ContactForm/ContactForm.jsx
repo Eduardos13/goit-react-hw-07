@@ -5,7 +5,7 @@ import { CiCirclePlus } from 'react-icons/ci';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
-import { addContactThunk } from '../../redux/contacts/contactsOps';
+import { addContactThunk } from '../../redux/contactsOps';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()

@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Contact.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/contactsSlice';
 import { RxCross2 } from 'react-icons/rx';
+import { deleteContactThunk } from '../../redux/contacts/contactsOps';
 
 const Contact = ({ item }) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Contact = ({ item }) => {
       </div>
       <button
         className={s.deleteBtn}
-        onClick={() => dispatch(deleteContact(item.id))}
+        onClick={() => dispatch(deleteContactThunk(item.id))}
       >
         <RxCross2 />
       </button>

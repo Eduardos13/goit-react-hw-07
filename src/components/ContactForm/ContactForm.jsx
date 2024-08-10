@@ -3,10 +3,9 @@ import s from './ContactForm.module.css';
 import { Field, Form, Formik } from 'formik';
 import { CiCirclePlus } from 'react-icons/ci';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contacts/contactsSlice';
-import { nanoid } from '@reduxjs/toolkit';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
+import { addContactThunk } from '../../redux/contacts/contactsOps';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -24,12 +23,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
   const initialValues = { name: '', number: '' };
   const onSubmit = (values, options) => {
-    const newContact = {
-      id: nanoid(),
-      name: values.name,
-      number: values.number,
-    };
-    dispatch(addContact(newContact));
+    dispatch(addContactThunk({ name: values.name, number: values.number }));
     options.resetForm();
   };
   return (

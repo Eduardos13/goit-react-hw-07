@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Contact.module.css';
 import { useDispatch } from 'react-redux';
 import { RxCross2 } from 'react-icons/rx';
-import { deleteContactThunk } from '../../redux/contacts/contactsOps';
+import { deleteContactThunk } from '../../redux/contactsOps';
 
 const Contact = ({ item }) => {
   const dispatch = useDispatch();

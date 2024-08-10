@@ -22,12 +22,34 @@ const slice = createSlice({
       })
       .addCase(fetchContactsThunk.pending, (state, action) => {
         state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchContactsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(addContactThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items.push(action.payload);
+      })
+      .addCase(addContactThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addContactThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
       .addCase(deleteContactThunk.fulfilled, (state, action) => {
         state.items = state.items.filter((item) => item.id !== action.payload);
       })
-      .addCase(addContactThunk.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+      .addCase(deleteContactThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteContactThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
@@ -39,9 +61,9 @@ export const selectError = (state) => state.contacts.error;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, (state) => state.filters.name],
-  (contacts, nameFiltered) => {
+  (contacts, nameFilter) => {
     return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(nameFiltered.toLowerCase())
+      contact.name.toLowerCase().includes(nameFilter.toLowerCase())
     );
   }
 );

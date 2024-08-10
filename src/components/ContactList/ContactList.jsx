@@ -2,30 +2,24 @@ import React, { useEffect } from 'react';
 import s from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectContacts,
+  selectFilteredContacts,
   selectLoading,
 } from '../../redux/contacts/contactsSlice';
 import Contact from '../Contact/Contact';
-import { selectFilter } from '../../redux/contacts/filtersSlice';
 import { fetchContactsThunk } from '../../redux/contactsOps';
 
 const ContactList = () => {
   const loading = useSelector(selectLoading);
+  const contacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchContactsThunk());
   }, [dispatch]);
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-
-  const filteredData = contacts.filter((item) =>
-    item.name.toLowerCase().includes(filter.toLowerCase())
-  );
 
   return (
     <ul className={s.contactsList}>
-      {filteredData.length ? (
-        filteredData.map((item) => (
+      {contacts.length ? (
+        contacts.map((item) => (
           <li key={item.id}>
             <Contact item={item} />
           </li>

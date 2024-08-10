@@ -3,14 +3,14 @@ import s from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectContacts,
-  selectIsLoading,
+  selectLoading,
 } from '../../redux/contacts/contactsSlice';
 import Contact from '../Contact/Contact';
 import { selectFilter } from '../../redux/contacts/filtersSlice';
 import { fetchContactsThunk } from '../../redux/contacts/contactsOps';
 
 const ContactList = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchContactsThunk());
@@ -33,7 +33,7 @@ const ContactList = () => {
       ) : (
         <h2>No contacts added</h2>
       )}
-      {isLoading && <h2>Loading...</h2>}
+      {loading && <h2>Loading...</h2>}
     </ul>
   );
 };

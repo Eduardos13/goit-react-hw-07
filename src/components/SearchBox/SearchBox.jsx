@@ -8,9 +8,8 @@ import { changeFilter } from '../../redux/contacts/filtersSlice';
 const SearchBox = () => {
   const dispatch = useDispatch();
   const initialValues = { filter: '' };
-  const onSubmit = (values, options) => {
+  const onSubmit = (values) => {
     dispatch(changeFilter(values.filter));
-    options.resetForm();
   };
   return (
     <div className={s.boxWraper}>
